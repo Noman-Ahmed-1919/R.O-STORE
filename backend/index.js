@@ -46,7 +46,7 @@ const exisitinguser = await User.findOne({email})
 // existing user
 if(exisitinguser){
   return res.status(200).send({
-    success:true,
+    success:false,
     message:'Already Register Please Login'
   })
 }
@@ -74,28 +74,63 @@ app.post("/login", async (req, res) => {
 
   console.log(req.body);
 
+  const {email,password} = req.body;
 
-if (req.body.password && req.body.email) {
-  
-  let user = await User.findOne(req.body).select("-password");
 
-  if (user) {
-    Jwt.sign({ user }, jwtkey, { expiresIn: "2h" }, (err, token) => {
-      res.send({ message: "Login Successfull", user, auth: token });
-    });
-  } else {
-    res.send({ message: "No User Found" });
-  }
-} else {
-  res.send({ message: "Please Enter Correct Info!" });
+if(!email || !password){
+  return res.status(404).send({
+    success:false,
+    message: "Invalid email or password"
+  })
 }
+
+// check user
+
+const user = await User.findOne({email})
+console.log(user);
+
+if(!user){
+  return res.status(404).send({
+    success:false,
+    message: "Email is not registerd"
+  })
+}
+// match password
+const matchpassword = await (password,user.password)
+if(!matchpassword){
+  return res.status(200).send({
+    success:false,
+    message:"Invalid Password"
+  })
+}
+const token = await Jwt.sign({_id:user._id}, jwtkey, {expiresIn: "2h",
+});
+
+  
+  res.status(200).send({
+  success:true,
+  message:"Login Successfully",
+  user:{
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    address: user.address,
+  },
+  token,
+})
 
 
 })
 
 
+// protected route
+// agar yaha se jo request jaye ge agar woh true hui tu user dashboard ko access ker sake gey.
 
+app.get("/authenticated-user",  (req, res) => {
 
+  res.status(200).send({ ok: true });
+
+});
 
 
 app.listen(5000, () => {
