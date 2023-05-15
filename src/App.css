@@ -1,38 +1,67 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.footer{
+  
   color: white;
+  padding: 10px;
+  background: linear-gradient(to right, #434343, #000000);
+
 }
 
-.App-link {
+.footer a{
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+
+
+}
+
+.footer a:hover{
+  border-bottom: 1px solid cyan;
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.btnpage{
+  border: 1px solid gray;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 05px;
+  margin-top: 20px;
+  padding: 04px 40px;
+
+}
+
+.fourtofour{
+  margin-top: 60px;
+}
+
+.register{
+  
+  
+}
+
+.login{
+  margin-top: 160px;
+  margin-bottom: 160px;
+  margin-left: 400px;
+  margin-right: 400px;
+   
+}
+
+
+#regdiv{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.googlebtn{
+  width: 230px;
+  margin-top: 40px;
+  margin-left: 160px;
+ 
+}
+
+.sign{
+  text-align: center;
+  margin-top: 60px;
 }
