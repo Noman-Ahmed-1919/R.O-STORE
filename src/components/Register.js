@@ -17,14 +17,17 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [question, setQuestion] = useState("");
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name,email,password,address,phone);
+    console.log(name,email,password,address,phone,question);
 
 try{
 
-axios.post("http://localhost:5000/register",{name,email,password,phone,address})
+axios.post("http://localhost:5000/register",{name,email,password,phone,address,question})
 .then((res) => {
   if(res.data){
     toast.success(res.data.message);
@@ -120,6 +123,22 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address})
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
+                    required
+
+                  />
+                </div>
+
+
+
+                <div className="form-group">
+                  <label for="exampleInputPassword1">Best Friend</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    placeholder="What is your Best Friend Name"
                     required
 
                   />

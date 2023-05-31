@@ -1,23 +1,35 @@
-import React from 'react'
-import Footer from '../Footer'
-import Header from '../Header'
+import React from "react";
+import Footer from "../Footer";
+import Header from "../Header";
+import Usermenu from "../Usermenu";
+import { useAuth } from "../../contextapi/contextapi";
 
+const Dashboard = () => {
+  const [auth] = useAuth();
 
-
-const dashboard = () => {
   return (
     <>
-      
-      <Header/>
+      <Header />
 
-<h1>this is dashboard kal start karna hai 3.16 se route bana ker dashboard ka</h1>
+      <div className="container-fluid  ">
+        <div className="row">
+          <div className="col-md-3">
+            <Usermenu />
+          </div>
 
+          <div className="col-md-9">
+            <div className="card w-75 p-3">
+              <h1> Admin Name: {auth?.user?.name}</h1>
+              <h1> Admin Email: {auth?.user?.email}</h1>
+              <h1> Admin Contact No: {auth?.user?.address}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
 
-
-<Footer/>
-
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default dashboard
+export default Dashboard;
