@@ -272,7 +272,7 @@ try{
     message:"All Categories List",
     findcategory,
   })
-  console.log(    findcategory  );
+  // console.log(    findcategory  );
 
 }
 catch(error){
@@ -314,7 +314,7 @@ app.get("/single-category/:slug", async  (req, res) => {
 
 // delete category
 
-  app.get("/delete-category/:id", async  (req, res) => {
+  app.delete("/delete-category/:id", async  (req, res) => {
 
     try{
 
@@ -346,7 +346,7 @@ app.post("/create-product", formidable(), async  (req, res) => {
 
   try{
 
-const {name,slug,description,price,category,quantity,shipping} =  req.files 
+const {name,slug,description,price,category,quantity,shipping} =  req.fields
 const {photo} = req.files 
 
 // validation ziada honey ki waja se switch case use ker rahe hain
@@ -368,14 +368,17 @@ return res.status(500).send({error:"photo is Required and should be less then 1m
                                                 
   
   }
+  // const addingproducts = new products({...req.body, slug: slugify(name)}).save();
 
-  const addingproducts = new products({...req.fields, slug: slugify(name)}).save();
+  const addingproducts = new products({...req.fields, slug: slugify(name)});
   if(photo) {
-    products.photo.data = fs.readFileSync(photo.path);
-    products.photo.contentType = photo.type;
+    
+    addingproducts.photo = fs.readFileSync(photo.path);
+    addingproducts.photo.contentType = photo.type;
 
   }
-  await products.save();
+
+await addingproducts.save();
   res.status(201).send({
 success: true,
 message: "Product Created Successfully",
