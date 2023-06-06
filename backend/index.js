@@ -405,12 +405,12 @@ app.get("/get-product", async  (req, res) => {
 
   try{
 
-const products = await products.find({}).populate('category').select("-photo").limit(12).sort({createdAt: -1});
+const allproductslist = await products.find({}).populate('category').select("-photo").limit(12).sort({createdAt: -1});
 res.status(200).send({
   success: true,
   total: products.length,
   message: "All Products",
-  products,
+  allproductslist,
 });
   
   }
