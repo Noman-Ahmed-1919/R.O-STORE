@@ -22,6 +22,8 @@ import Createproduct from "./components/Createproduct";
 import Dashboard from "./components/user/Dashboard";
 import Oders from "./components/Oders";
 import Profile from "./components/Profile";
+import Products from "./components/Products";
+import Updateproduct from "./components/Updateproduct";
 
 
 function App() {
@@ -47,6 +49,10 @@ function App() {
 <Route exact path="admin" element={<Admindashboard />} />
 <Route exact path="admin/create-category" element={<Createcategory />} />
 <Route exact path="admin/create-product" element={<Createproduct />} />
+<Route exact path="admin/product/:slug" element={<Updateproduct />} />
+
+<Route exact path="admin/product" element={<Products />} />
+
 <Route exact path="admin/users" element={<Users />} />
 
 

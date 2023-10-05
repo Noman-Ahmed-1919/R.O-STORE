@@ -65,3 +65,10 @@
   text-align: center;
   margin-top: 60px;
 }
+
+
+.product-link{
+  text-decoration: none !important;
+  color: #000000 !important;
+
+}

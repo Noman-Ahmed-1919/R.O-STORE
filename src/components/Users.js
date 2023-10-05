@@ -1,9 +1,12 @@
 import React from 'react'
 import Adminmenu from './Adminmenu'
+import Header from './Header'
+
 
 const Users = () => {
   return (
     <>
+              <Header/>
 
 <div className='container-fluid m-3 p-3'>
     <div className='row'>

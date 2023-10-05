@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Categoryform from "./Categoryform";
 import { Modal } from "antd";
+import Header from './Header'
+
 
 const Createcategory = () => {
   const [listofcategories, setListofcategories] = useState([]);
@@ -34,6 +36,9 @@ const Createcategory = () => {
     }
   };
 
+
+
+  
   //get all categories
 
   const getallcategories = async () => {
@@ -92,12 +97,12 @@ const Createcategory = () => {
   const handledelete = async (id) => {
     try {
       const data = axios
-        .put(`http://localhost:5000/delete-category/${id}`, {
+        .delete(`http://localhost:5000/delete-category/${id}`, {
           name: updatedname,
         })
         .then((res) => {
-          if (data.success) {
-            toast.success(`Category is Deleted`);
+          if (res.data.success) {
+            toast.success("category is Deleted");
 
             getallcategories();
           } else {
@@ -111,6 +116,10 @@ const Createcategory = () => {
 
   return (
     <>
+
+<Header/>
+
+
       <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
