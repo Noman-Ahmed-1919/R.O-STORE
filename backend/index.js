@@ -294,7 +294,9 @@ catch(error){
 app.get("/single-category/:slug", async  (req, res) => {
 
   try{
-    const category = await category.findOne({slug: req.params.slug});
+
+    const {slug}= req.params;
+    const category = await category.findOne({});
     res.status(200).send({
       success:true,
       message:"Get Single Category Successfully",
@@ -336,6 +338,16 @@ await category.findByIdAndDelete(id);
       })
     }
     })
+
+
+
+
+
+
+
+
+
+
 
 
     //Now we are creating Products Routes.
@@ -404,7 +416,7 @@ addingproducts,
 app.get("/get-product", async  (req, res) => {
 
   try{
-
+    // .select("-photo")
 const allproductslist = await products.find({}).populate('category').select("-photo").limit(12).sort({createdAt: -1});
 res.status(200).send({
   success: true,
@@ -431,11 +443,13 @@ res.status(200).send({
 //get single products
 
 
-app.get("/get-singleproduct/:slug", async  (req, res) => {
+app.get("/getsingleproduct/:slug", async  (req, res) => {
 
   try{
 
-const product = await products.findOne({ slug: req.params.slug}).select("-photo").populate('category');
+    // const {slug} = req.params.slug;
+
+const product = await products.findOne({slug:req.params.slug}).select("-photo").populate('category');
 res.status(200).send({
   success: true,
   message: "Single Product Fetched",
@@ -457,16 +471,16 @@ res.status(200).send({
 
 // get photo
 
-app.get("/product-photo/:productid", async  (req, res) => {
+app.get("/product-photo/:id", async  (req, res) => {
 
   try{
+    const {id} = req.params;
 
-const product = await products.findById(req.params.productid).select("photo");
+const getphotoproduct = await products.findOne(id).select("photo");
+if(getphotoproduct.photo.data){
 
-if(product.photo.data){
-
-  res.set("Content-type", product.photo.contentType);
-return res.status(200).send(product.photo.data);
+res.set("Content-type", getphotoproduct.photo.contentType);
+return res.status(200).send(getphotoproduct.photo.data);
    
 
 }
@@ -516,8 +530,8 @@ app.get("/delete-product/productid", async  (req, res) => {
     try{
     
    
-const {name,slug,description,price,category,quantity,shipping} = req.fields
-const {photo} = req.files 
+const {name,description,price,category,quantity} = req.fields;
+// const {photo} = req.files 
 
 // validation ziada honey ki waja se switch case use ker rahe hain
 
@@ -533,13 +547,13 @@ case !category:
 return res.status(500).send({error:"Category is Require"})
 case !quantity:
 return res.status(500).send({error:"Quantity is Require"})
-case photo && photo.size > 1000000:
-return res.status(500).send({error:"photo is Required and should be less then 1mb"})
+// case photo && photo.size > 1000000:
+// return res.status(500).send({error:"photo is Required and should be less then 1mb"})
                                                 
 }
 
-const products = await productModel.findByIdAndUpdate(
-  req.params.productid,
+const updateproduct = await products.findByIdAndUpdate(
+  req.params.id,
   { ...req.fields, slug: slugify(name)},
   { new: true}
 );
@@ -552,8 +566,8 @@ const products = await productModel.findByIdAndUpdate(
   await products.save();
   res.status(201).send({
 success: true,
-message: "Product Created Successfully",
-products,
+message: "Product update Successfully",
+updateproduct,
 
   });
 
