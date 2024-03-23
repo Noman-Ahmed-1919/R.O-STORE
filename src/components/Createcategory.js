@@ -25,9 +25,9 @@ const Createcategory = () => {
         .then((res) => {
           if (data) {
             toast.success(`${name} is created`);
-            getallcategories();
+            getallcategories();  
           } else {
-            toast.error(data.message);
+            toast.error(res.data.message);
           }
         });
     } catch (error) {
@@ -38,23 +38,23 @@ const Createcategory = () => {
 
 
 
-  
+
   //get all categories
 
   const getallcategories = async () => {
     try {
       const categorydata = await axios.get("http://localhost:5000/get-category")
         .then((res) => {
-          console.log( res);
+          console.log(res);
 
           if (res) {
-    setListofcategories(res.data.findcategory);
+            setListofcategories(res.data.findcategory);
 
           }
 
         });
 
-      } catch (error) {
+    } catch (error) {
       console.log(error);
       toast.error("Something went wrong in getting category");
     }
@@ -72,9 +72,9 @@ const Createcategory = () => {
   const handleupdate = async (e) => {
     e.preventDefault();
     try {
-      const data = axios.put(`http://localhost:5000/update-category/${selected._id}`, 
-        {name: updatedname,}
-          )
+      const data = axios.put(`http://localhost:5000/update-category/${selected._id}`,
+        { name: updatedname, }
+      )
         .then((res) => {
           console.log(data);
           if (res.data.success) {
@@ -117,7 +117,7 @@ const Createcategory = () => {
   return (
     <>
 
-<Header/>
+      <Header />
 
 
       <div className="container-fluid m-3 p-3">

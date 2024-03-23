@@ -5,12 +5,10 @@ import { toast } from "react-toastify";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { LoginSocialGoogle } from "reactjs-social-login";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 const Register = () => {
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,32 +17,32 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [question, setQuestion] = useState("");
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name,email,password,address,phone,question);
+    console.log(name, email, password, address, phone, question);
 
-try{
-
-axios.post("http://localhost:5000/register",{name,email,password,phone,address,question})
-.then((res) => {
-  if(res.data){
-    toast.success(res.data.message);
-    navigate("/login")
-
-  }else{
-    toast.error(res.data.message);
-
-  }
-})
-
-}catch(error){
-  console.log(error);
-  toast.error("something went wrong");
-
-}
-
+    try {
+      axios
+        .post("http://localhost:5000/register", {
+          name,
+          email,
+          password,
+          phone,
+          address,
+          question,
+        })
+        .then((res) => {
+          if (res.data) {
+            toast.success(res.data.message);
+            navigate("/login");
+          } else {
+            toast.error(res.data.message);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
+    }
   };
 
   return (
@@ -52,12 +50,11 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
       <Header />
 
       <div className="container" id="regdiv">
-      <h1 style={{ textAlign: "center" }}>Register</h1>
+        <h1 style={{ textAlign: "center" }}>Register</h1>
 
         <div className="row">
           <div className="col-md-6">
             <div className="register">
-
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label for="exampleInputEmail1">Name</label>
@@ -82,7 +79,6 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter Email"
                     required
-
                   />
                 </div>
 
@@ -96,7 +92,6 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter Address"
                     required
-
                   />
                 </div>
 
@@ -110,7 +105,6 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Enter Phone Number"
                     required
-
                   />
                 </div>
 
@@ -124,11 +118,8 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
-
                   />
                 </div>
-
-
 
                 <div className="form-group">
                   <label for="exampleInputPassword1">Best Friend</label>
@@ -140,7 +131,6 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="What is your Best Friend Name"
                     required
-
                   />
                 </div>
 
@@ -156,11 +146,9 @@ axios.post("http://localhost:5000/register",{name,email,password,phone,address,q
           </div>
 
           <div className="col-md-6">
-
-          <h6 className="sign">Sign up with Google!</h6>
+            <h6 className="sign">Sign up with Google!</h6>
 
             <div className="googlebtn">
-
               <LoginSocialGoogle
                 client_id={
                   "307536093349-jcpf2v1hic7dmv4iim9eb6tfr87khde2.apps.googleusercontent.com"

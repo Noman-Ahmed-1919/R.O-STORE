@@ -125,7 +125,7 @@ const Createproduct = () => {
                     <img
                       src={URL.createObjectURL(photo)}
                       alt="product_photo"
-                      height={"200"}
+                      height={"200px"}
                       className="img img-responsive"
                     />
                   </div>

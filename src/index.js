@@ -5,16 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import { AuthProvider } from './contextapi/contextapi';
+
 import 'antd/dist/reset.css';
+import { SearchProvider } from './contextapi/search';
+import { CartProvider } from './contextapi/cart';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <AuthProvider>
+    <SearchProvider>
+      <CartProvider>
   <BrowserRouter>
 <App />
 </BrowserRouter>
+</CartProvider>
+</SearchProvider>
+
 </AuthProvider>
 );
 

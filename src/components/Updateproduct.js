@@ -17,7 +17,7 @@ const Updateproduct = () => {
 
 
     const navigate = useNavigate();
-const params = useParams() // useParams is lye used karte hain tak hum apne url to get ker sake
+    const params = useParams() // useParams is lye used karte hain tak hum apne url to get ker sake
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
@@ -27,11 +27,12 @@ const params = useParams() // useParams is lye used karte hain tak hum apne url 
     const [quantity, setQuantity] = useState("");
     const [shipping, setShipping] = useState("");
     const [photo, setPhoto] = useState("");
-  const [id, setId] = useState("");
+    const [id, setId] = useState("");
 
 //get single product
 
 console.log(params.slug);
+
 
 
 const getsingleproduct = async () =>{
@@ -105,25 +106,44 @@ useEffect(() => {
         productdata.append("description", description);
         productdata.append("price", price);
         productdata.append("quantity", quantity);
-        productdata.append("photo", photo);
+        // productdata.append("photo", photo);
         productdata.append("category", category);
   
-   const {data} =     axios.put(`http://localhost:5000/update-product/${params.slug}`, productdata)
+            axios.put(`http://localhost:5000/update-product/${id}`, productdata)
           .then((res) => {
-            console.log(data);
+            console.log(res);
   
             if (res?.data) {
               toast.success("Product  Update Successfully");
-              navigate("/dashboard/admin/products");
             } else {
               toast.error(res?.data.message);
+              navigate("/dashboard/admin/products");
+
             }
           });
       } catch (error) {
         console.log(error);
-        toast.error("something went wrong");
+        toast.error("something went wrong in update product");
       }
     };
+
+
+// delete a product
+
+const handledelete = async() =>{
+  try{
+
+    let answer = window.prompt("Are You Sure want to delete this product ? ");
+    if (!answer) return;
+const {data} = await axios.delete(`http://localhost:5000/delete-product/${id}`)
+toast.success('Product Deleted Successfully')
+navigate('/dashboard/admin/product');
+  }catch(error){
+    console.log(error);
+    toast.error("Something went wrong in update product");
+  }
+}
+
 
 
 
@@ -177,12 +197,8 @@ useEffect(() => {
         <div className="mb-3">
           {photo && (
             <div>
-              <img
-                src={URL.createObjectURL(photo)}
-                alt="product_photo"
-                height={"200"}
-                className="img img-responsive"
-              />
+                <img src={`http://localhost:5000/product/product-photo/${id}`} class="card-img-top" alt={name}/>
+
             </div>
           )}
         </div>
@@ -246,6 +262,12 @@ useEffect(() => {
         <div className="mb-3">
           <button className="btn btn-primary" onClick={handleupdate}>
             Update Product
+          </button>
+        </div>
+
+        <div className="mb-3">
+          <button className="btn btn-danger" onClick={handledelete}>
+            Delete Product
           </button>
         </div>
       </div>

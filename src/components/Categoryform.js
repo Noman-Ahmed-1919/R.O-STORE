@@ -1,24 +1,24 @@
 import React from 'react'
 
-const Categoryform = ({handleSubmit,value, setValue}) => {
+const Categoryform = ({ handleSubmit, value, setValue }) => {
   return (
     <>
-      
-<form onSubmit={handleSubmit} >
 
-    <div className='mb-3'>
+      <form onSubmit={handleSubmit} >
 
-        <input type="text" className='form-control' placeholder='Enter new Category' 
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        />
+        <div className='mb-3'>
 
-    </div>
+          <input type="text" className='form-control' placeholder='Enter new Category'
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+
+        </div>
 
 
-    <button type="submit" className='btn btn-primary'>Submit</button>
+        <button type="submit" className='btn btn-primary'>Submit</button>
 
-</form>
+      </form>
 
 
 
